@@ -958,6 +958,80 @@
             color: #00bfff;
         }
 
+        /* Take Task Button */
+        .btn-take-task {
+            background: linear-gradient(135deg, #00d4ff, #00bfff);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            font-family: 'Satoshi', sans-serif;
+        }
+
+        .btn-take-task:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Assign Menu */
+        .assign-menu {
+            position: fixed;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 8px;
+            z-index: 10000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            min-width: 200px;
+        }
+
+        .assign-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #e2e8f0;
+            font-family: 'Satoshi', sans-serif;
+        }
+
+        .assign-menu-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateX(4px);
+        }
+
+        .assign-menu-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .assign-menu-info {
+            flex: 1;
+        }
+
+        .assign-menu-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .assign-menu-role {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
         /* Firebase Connection Status */
         .connection-status {
             position: fixed;
@@ -1004,12 +1078,404 @@
             }
         }
 
+        /* Login Screen */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .login-container {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .login-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .login-label {
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .login-input {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #e2e8f0;
+            font-size: 1rem;
+            font-family: 'Satoshi', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .login-button {
+            background: linear-gradient(135deg, #00d4ff, #00bfff);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Satoshi', sans-serif;
+            margin-top: 1rem;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+        }
+
+        .login-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .login-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* User Info Display */
+        .user-info {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .user-role.admin {
+            color: #fbbf24;
+        }
+
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Satoshi', sans-serif;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        /* Signup Link */
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .signup-link a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #00bfff;
+            text-decoration: underline;
+        }
+
+        /* Avatar Selector */
+        .avatar-selector {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+
+        .avatar-option {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .avatar-option:hover {
+            transform: scale(1.1);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .avatar-option.selected {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            transform: scale(1.15);
+        }
+
+        /* Pending Approval Message */
+        .pending-message {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: #fbbf24;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Admin Approval Panel */
+        .admin-panel {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .admin-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .admin-panel-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .pending-badge {
+            background: #fbbf24;
+            color: #0f172a;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .pending-user-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .pending-user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .pending-user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .pending-user-details {
+            flex: 1;
+        }
+
+        .pending-user-name {
+            font-weight: 600;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        .pending-user-email {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .pending-user-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .approve-btn, .reject-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Satoshi', sans-serif;
+        }
+
+        .approve-btn {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+        }
+
+        .approve-btn:hover {
+            background: rgba(16, 185, 129, 0.3);
+        }
+
+        .reject-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .reject-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .no-pending {
+            text-align: center;
+            color: #94a3b8;
+            padding: 20px;
+        }
+
+        .approval-notification {
+            position: fixed;
+            top: 20px;
+            right: 200px;
+            background: rgba(251, 191, 36, 0.95);
+            color: #0f172a;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            z-index: 10001;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+        }
+
+        .approval-notification:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(251, 191, 36, 0.4);
+        }
+
     </style>
 
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getDatabase, ref, onValue, push, set, remove, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
         // ⚠️ CONFIGURATION FIREBASE À REMPLACER
         // Suivez les instructions dans FIREBASE_SETUP.txt
@@ -1024,13 +1490,85 @@
         };
 
         // Initialize Firebase
-        let app, database, tasksRef;
+        let app, database, tasksRef, auth;
         let isConnected = false;
+        let currentUser = null;
+
+        // Note: User roles are now stored in Firebase (approvedUsers)
+        // Lysty and S.stra are automatically set as admins when approved
 
         try {
             app = initializeApp(firebaseConfig);
             database = getDatabase(app);
+            auth = getAuth(app);
             tasksRef = ref(database, 'tasks');
+            
+            // Authentication state observer
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    // Check if user is approved
+                    const userRef = ref(database, `approvedUsers/${user.uid}`);
+                    const userSnapshot = await new Promise((resolve) => {
+                        onValue(userRef, (snapshot) => {
+                            resolve(snapshot);
+                        }, { onlyOnce: true });
+                    });
+
+                    const approvedData = userSnapshot.val();
+                    
+                    if (!approvedData) {
+                        // User not approved yet
+                        document.getElementById('login-screen').style.display = 'none';
+                        document.getElementById('signup-screen').style.display = 'none';
+                        document.getElementById('pending-screen').style.display = 'flex';
+                        document.getElementById('user-info').style.display = 'none';
+                        document.querySelector('.container').style.display = 'none';
+                        return;
+                    }
+
+                    // User is approved
+                    currentUser = {
+                        uid: user.uid,
+                        email: user.email,
+                        name: approvedData.name,
+                        avatar: approvedData.avatar,
+                        role: approvedData.role || 'user',
+                        member: approvedData.member
+                    };
+                    
+                    // Update UI
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('signup-screen').style.display = 'none';
+                    document.getElementById('pending-screen').style.display = 'none';
+                    document.getElementById('user-info').style.display = 'flex';
+                    document.getElementById('user-name').textContent = currentUser.name;
+                    document.getElementById('user-avatar').textContent = currentUser.avatar;
+                    
+                    const roleEl = document.getElementById('user-role');
+                    if (currentUser.role === 'admin') {
+                        roleEl.textContent = '👑 Administrateur';
+                        roleEl.classList.add('admin');
+                        // Load pending users for admins
+                        loadPendingUsers();
+                    } else {
+                        roleEl.textContent = '👤 Membre';
+                        roleEl.classList.remove('admin');
+                    }
+                    
+                    // Show main content
+                    document.querySelector('.container').style.display = 'block';
+                } else {
+                    // User is signed out
+                    currentUser = null;
+                    document.getElementById('login-screen').style.display = 'flex';
+                    document.getElementById('signup-screen').style.display = 'none';
+                    document.getElementById('pending-screen').style.display = 'none';
+                    document.getElementById('user-info').style.display = 'none';
+                    document.getElementById('admin-panel').style.display = 'none';
+                    document.getElementById('approval-notification').style.display = 'none';
+                    document.querySelector('.container').style.display = 'none';
+                }
+            });
             
             // Listen for connection status
             const connectedRef = ref(database, '.info/connected');
@@ -1119,15 +1657,406 @@
                 await remove(taskRef);
             }
         };
+
+        // Authentication functions
+        window.handleLogin = async function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorEl = document.getElementById('login-error');
+            const loginBtn = document.getElementById('login-btn');
+            
+            errorEl.style.display = 'none';
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Connexion...';
+            
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                let errorMessage = 'Erreur de connexion';
+                
+                switch(error.code) {
+                    case 'auth/invalid-email':
+                        errorMessage = 'Adresse email invalide';
+                        break;
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                        errorMessage = 'Email ou mot de passe incorrect';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage = 'Trop de tentatives. Réessayez plus tard.';
+                        break;
+                    case 'auth/invalid-credential':
+                        errorMessage = 'Email ou mot de passe incorrect';
+                        break;
+                }
+                
+                errorEl.textContent = errorMessage;
+                errorEl.style.display = 'block';
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Se connecter';
+            }
+        };
+
+        window.handleLogout = async function() {
+            if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                try {
+                    await signOut(auth);
+                } catch (error) {
+                    console.error('Logout error:', error);
+                    alert('Erreur lors de la déconnexion');
+                }
+            }
+        };
+
+        // UI Navigation functions
+        let selectedAvatar = '👤';
+
+        window.showLoginScreen = function() {
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('signup-screen').style.display = 'none';
+            document.getElementById('pending-screen').style.display = 'none';
+        };
+
+        window.showSignupScreen = function() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('signup-screen').style.display = 'flex';
+            document.getElementById('pending-screen').style.display = 'none';
+            selectedAvatar = '👤'; // Reset
+        };
+
+        window.selectAvatar = function(avatar) {
+            selectedAvatar = avatar;
+            document.querySelectorAll('.avatar-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            document.querySelector(`[data-avatar="${avatar}"]`).classList.add('selected');
+        };
+
+        // Signup function
+        window.handleSignup = async function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const errorEl = document.getElementById('signup-error');
+            const signupBtn = document.getElementById('signup-btn');
+            
+            if (!selectedAvatar || selectedAvatar === '👤') {
+                errorEl.textContent = 'Veuillez choisir un avatar';
+                errorEl.style.display = 'block';
+                return;
+            }
+            
+            errorEl.style.display = 'none';
+            signupBtn.disabled = true;
+            signupBtn.textContent = 'Création du compte...';
+            
+            try {
+                // Create Firebase Auth account
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                
+                // Store user info in pending users
+                const pendingUserRef = ref(database, `pendingUsers/${user.uid}`);
+                await set(pendingUserRef, {
+                    uid: user.uid,
+                    name: name,
+                    email: email,
+                    avatar: selectedAvatar,
+                    requestedAt: new Date().toISOString()
+                });
+                
+                // Sign out immediately (will show pending screen)
+                await signOut(auth);
+                
+                // Show pending screen
+                document.getElementById('signup-screen').style.display = 'none';
+                document.getElementById('pending-screen').style.display = 'flex';
+                
+            } catch (error) {
+                let errorMessage = 'Erreur lors de la création du compte';
+                
+                switch(error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'Cet email est déjà utilisé';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Adresse email invalide';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'Le mot de passe doit contenir au moins 6 caractères';
+                        break;
+                }
+                
+                errorEl.textContent = errorMessage;
+                errorEl.style.display = 'block';
+            } finally {
+                signupBtn.disabled = false;
+                signupBtn.textContent = 'Créer mon compte';
+            }
+        };
+
+        // Load pending users (for admins)
+        async function loadPendingUsers() {
+            const pendingRef = ref(database, 'pendingUsers');
+            onValue(pendingRef, (snapshot) => {
+                const data = snapshot.val();
+                const container = document.getElementById('pending-users-list');
+                const countBadge = document.getElementById('pending-count');
+                const notification = document.getElementById('approval-notification');
+                
+                if (!data) {
+                    container.innerHTML = '<div class="no-pending">Aucune demande en attente</div>';
+                    countBadge.textContent = '0';
+                    notification.style.display = 'none';
+                    return;
+                }
+                
+                const pendingUsers = Object.values(data);
+                countBadge.textContent = pendingUsers.length;
+                
+                if (pendingUsers.length > 0) {
+                    notification.style.display = 'block';
+                    document.getElementById('notification-text').textContent = 
+                        `${pendingUsers.length} demande${pendingUsers.length > 1 ? 's' : ''}`;
+                }
+                
+                container.innerHTML = pendingUsers.map(user => `
+                    <div class="pending-user-card">
+                        <div class="pending-user-info">
+                            <div class="pending-user-avatar">${user.avatar}</div>
+                            <div class="pending-user-details">
+                                <div class="pending-user-name">${user.name}</div>
+                                <div class="pending-user-email">${user.email}</div>
+                            </div>
+                        </div>
+                        <div class="pending-user-actions">
+                            <button class="approve-btn" onclick="approveUser('${user.uid}', '${user.name}', '${user.email}', '${user.avatar}')">
+                                ✓ Approuver
+                            </button>
+                            <button class="reject-btn" onclick="rejectUser('${user.uid}')">
+                                ✕ Rejeter
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            });
+        }
+
+        // Approve user
+        window.approveUser = async function(uid, name, email, avatar) {
+            if (!confirm(`Approuver ${name} (${email}) ?`)) return;
+            
+            try {
+                // Determine role - Lysty and S.stra are admins
+                let role = 'user';
+                let member = 'member' + (Math.floor(Math.random() * 6) + 1); // Assign random member ID
+                
+                if (email === 'lysty@aquaworld.com') {
+                    role = 'admin';
+                    member = 'member1';
+                } else if (email === 's.stra@aquaworld.com') {
+                    role = 'admin';
+                    member = 'member2';
+                }
+                
+                // Move to approved users
+                const approvedUserRef = ref(database, `approvedUsers/${uid}`);
+                await set(approvedUserRef, {
+                    uid: uid,
+                    name: name,
+                    email: email,
+                    avatar: avatar,
+                    role: role,
+                    member: member,
+                    approvedAt: new Date().toISOString(),
+                    approvedBy: currentUser.uid
+                });
+                
+                // Remove from pending
+                const pendingUserRef = ref(database, `pendingUsers/${uid}`);
+                await remove(pendingUserRef);
+                
+                alert(`✅ ${name} a été approuvé !`);
+            } catch (error) {
+                console.error('Approval error:', error);
+                alert('Erreur lors de l\'approbation');
+            }
+        };
+
+        // Reject user
+        window.rejectUser = async function(uid) {
+            if (!confirm('Êtes-vous sûr de vouloir rejeter cette demande ? Le compte sera supprimé.')) return;
+            
+            try {
+                // Remove from pending
+                const pendingUserRef = ref(database, `pendingUsers/${uid}`);
+                await remove(pendingUserRef);
+                
+                // Note: We can't delete the Firebase Auth account from client-side
+                // The user account will exist but won't be able to access the app
+                
+                alert('❌ Demande rejetée');
+            } catch (error) {
+                console.error('Rejection error:', error);
+                alert('Erreur lors du rejet');
+            }
+        };
+
+        // Toggle admin panel
+        window.toggleAdminPanel = function() {
+            const panel = document.getElementById('admin-panel');
+            if (panel.style.display === 'none' || !panel.style.display) {
+                panel.style.display = 'block';
+            } else {
+                panel.style.display = 'none';
+            }
+        };
+
+        // Check if user can modify task
+        window.canModifyTask = function(task) {
+            if (!currentUser) return false;
+            if (currentUser.role === 'admin') return true; // Admins can modify everything
+            return task.assignedTo === currentUser.member; // Users can only modify their own tasks
+        };
+
+    </script>
+
+    <!-- Temporary stubs for inline onclick handlers - will be replaced by module -->
+    <script>
+        // These will be replaced when the ES6 module loads
+        window.showSignupScreen = function() { console.log('Loading...'); };
+        window.showLoginScreen = function() { console.log('Loading...'); };
+        window.selectAvatar = function() { console.log('Loading...'); };
+        window.handleLogout = function() { console.log('Loading...'); };
+        window.toggleAdminPanel = function() { console.log('Loading...'); };
+        window.openModal = function() { console.log('Loading...'); };
+        window.approveUser = function() { console.log('Loading...'); };
+        window.rejectUser = function() { console.log('Loading...'); };
     </script>
 </head>
 <body>
+    <!-- Login Screen -->
+    <div class="login-overlay" id="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h1 class="login-title">🌊 AquaWorld</h1>
+                <p class="login-subtitle">Gestion des tâches FiveM</p>
+            </div>
+            <form class="login-form" id="login-form">
+                <div class="login-input-group">
+                    <label class="login-label">Email</label>
+                    <input type="email" class="login-input" id="login-email" required placeholder="votre@email.com">
+                </div>
+                <div class="login-input-group">
+                    <label class="login-label">Mot de passe</label>
+                    <input type="password" class="login-input" id="login-password" required placeholder="••••••••">
+                </div>
+                <div id="login-error" class="login-error" style="display: none;"></div>
+                <button type="submit" class="login-button" id="login-btn">Se connecter</button>
+            </form>
+            <div class="signup-link">
+                Pas encore de compte ? <a href="#" onclick="showSignupScreen(); return false;">Créer un compte</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Screen -->
+    <div class="login-overlay" id="signup-screen" style="display: none;">
+        <div class="login-container">
+            <div class="login-header">
+                <h1 class="login-title">📝 Créer un compte</h1>
+                <p class="login-subtitle">Rejoignez l'équipe AquaWorld</p>
+            </div>
+            <form class="login-form" id="signup-form">
+                <div class="login-input-group">
+                    <label class="login-label">Nom</label>
+                    <input type="text" class="login-input" id="signup-name" required placeholder="Votre nom">
+                </div>
+                <div class="login-input-group">
+                    <label class="login-label">Email</label>
+                    <input type="email" class="login-input" id="signup-email" required placeholder="votre@email.com">
+                </div>
+                <div class="login-input-group">
+                    <label class="login-label">Mot de passe</label>
+                    <input type="password" class="login-input" id="signup-password" required placeholder="••••••••" minlength="6">
+                </div>
+                <div class="login-input-group">
+                    <label class="login-label">Choisissez votre avatar</label>
+                    <div class="avatar-selector">
+                        <div class="avatar-option" data-avatar="🦊" onclick="selectAvatar('🦊')">🦊</div>
+                        <div class="avatar-option" data-avatar="👾" onclick="selectAvatar('👾')">👾</div>
+                        <div class="avatar-option" data-avatar="☕" onclick="selectAvatar('☕')">☕</div>
+                        <div class="avatar-option" data-avatar="🌙" onclick="selectAvatar('🌙')">🌙</div>
+                        <div class="avatar-option" data-avatar="👑" onclick="selectAvatar('👑')">👑</div>
+                        <div class="avatar-option" data-avatar="✨" onclick="selectAvatar('✨')">✨</div>
+                        <div class="avatar-option" data-avatar="🎮" onclick="selectAvatar('🎮')">🎮</div>
+                        <div class="avatar-option" data-avatar="🚀" onclick="selectAvatar('🚀')">🚀</div>
+                        <div class="avatar-option" data-avatar="⚡" onclick="selectAvatar('⚡')">⚡</div>
+                        <div class="avatar-option" data-avatar="🔥" onclick="selectAvatar('🔥')">🔥</div>
+                        <div class="avatar-option" data-avatar="💎" onclick="selectAvatar('💎')">💎</div>
+                        <div class="avatar-option" data-avatar="🌟" onclick="selectAvatar('🌟')">🌟</div>
+                    </div>
+                </div>
+                <div id="signup-error" class="login-error" style="display: none;"></div>
+                <button type="submit" class="login-button" id="signup-btn">Créer mon compte</button>
+            </form>
+            <div class="signup-link">
+                Déjà un compte ? <a href="#" onclick="showLoginScreen(); return false;">Se connecter</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Approval Screen -->
+    <div class="login-overlay" id="pending-screen" style="display: none;">
+        <div class="login-container">
+            <div class="login-header">
+                <h1 class="login-title">⏳ En attente</h1>
+                <p class="login-subtitle">Votre demande a été envoyée</p>
+            </div>
+            <div class="pending-message">
+                <p style="margin: 0 0 10px 0; font-size: 1.2rem;">🎉 Votre compte a été créé !</p>
+                <p style="margin: 0;">Votre demande est en attente d'approbation par les administrateurs.</p>
+                <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: #94a3b8;">Vous recevrez un accès dès que votre compte sera approuvé.</p>
+            </div>
+            <button class="login-button" onclick="showLoginScreen()" style="margin-top: 1.5rem;">Retour à la connexion</button>
+        </div>
+    </div>
+
+    <!-- Admin Approval Panel (hidden by default) -->
+    <div class="admin-panel" id="admin-panel" style="display: none;">
+        <div class="admin-panel-header">
+            <div class="admin-panel-title">Demandes en attente</div>
+            <div class="pending-badge" id="pending-count">0</div>
+        </div>
+        <div id="pending-users-list"></div>
+    </div>
+
+    <!-- Approval Notification (hidden by default) -->
+    <div class="approval-notification" id="approval-notification" style="display: none;" onclick="toggleAdminPanel()">
+        🔔 <span id="notification-text">Nouvelles demandes</span>
+    </div>
+
+    <!-- User Info (hidden by default) -->
+    <div class="user-info" id="user-info" style="display: none;">
+        <div class="user-avatar" id="user-avatar">👤</div>
+        <div class="user-details">
+            <div class="user-name" id="user-name">Utilisateur</div>
+            <div class="user-role" id="user-role">Membre</div>
+        </div>
+        <button class="logout-btn" onclick="handleLogout()">Déconnexion</button>
+    </div>
+
     <!-- Background Effects -->
     <div class="bg-effect bg-effect-1" style="background: #00d4ff;"></div>
     <div class="bg-effect bg-effect-2" style="background: #1e90ff;"></div>
     <div class="bg-effect bg-effect-3" style="background: #00bfff;"></div>
 
-    <div class="container">
+    <div class="container" style="display: none;">
         <!-- Header -->
         <div class="header">
             <div class="header-content">
@@ -1226,6 +2155,7 @@
                 </select>
                 <select id="filter-member">
                     <option value="all">Tous les membres</option>
+                    <option value="unassigned">👋 À prendre</option>
                     <option value="member1">🦊 Lysty</option>
                     <option value="member2">👾 S.stra</option>
                     <option value="member3">☕ TiiKaff</option>
@@ -1320,9 +2250,10 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="assign-field" style="display: none;">
                         <label class="form-label">Assigné à</label>
                         <select id="task-member">
+                            <option value="unassigned">👋 À prendre</option>
                             <option value="member1">🦊 Lysty</option>
                             <option value="member2">👾 S.stra</option>
                             <option value="member3">☕ TiiKaff</option>
@@ -1388,6 +2319,7 @@
         };
 
         const members = {
+            unassigned: { name: 'À prendre', avatar: '👋', role: 'Non assignée', color: '#94a3b8' },
             member1: { name: 'Lysty', avatar: '🦊', role: 'Owner', color: '#00bfff' },
             member2: { name: 'S.stra', avatar: '👾', role: 'Owner', color: '#00e5ff' },
             member3: { name: 'TiiKaff', avatar: '☕', role: 'Lead Dev', color: '#06b6d4' },
@@ -1432,6 +2364,8 @@
 
             // Update categories
             const categoriesList = document.getElementById('categories-list');
+            if (!categoriesList) return; // Exit if element doesn't exist yet
+            
             categoriesList.innerHTML = '';
             
             Object.keys(categories).forEach(catId => {
@@ -1459,6 +2393,9 @@
         // Expose functions globally for Firebase listener
         window.updateStats = updateStats;
         window.renderTasks = renderTasks;
+        window.showAssignMenu = showAssignMenu;
+        window.assignTaskTo = assignTaskTo;
+        window.closeAssignMenu = closeAssignMenu;
 
         // Render tasks
         function renderTasks() {
@@ -1492,6 +2429,7 @@
                 const priority = priorities[task.priority];
                 const status = statuses[task.status];
                 const member = members[task.assignedTo];
+                const canModify = window.canModifyTask ? window.canModifyTask(task) : false;
 
                 return `
                     <div class="task-card glass-dark" style="animation-delay: ${index * 0.1}s">
@@ -1500,10 +2438,12 @@
                                 <span>${cat.icon}</span>
                                 <span>${cat.label}</span>
                             </div>
-                            <div class="task-actions">
-                                <button class="icon-btn" onclick="editTask(${task.id})" title="Modifier">✏️</button>
-                                <button class="icon-btn" onclick="deleteTask(${task.id})" title="Supprimer">🗑️</button>
-                            </div>
+                            ${canModify ? `
+                                <div class="task-actions">
+                                    <button class="icon-btn" onclick="editTask(${task.id})" title="Modifier">✏️</button>
+                                    <button class="icon-btn" onclick="deleteTask(${task.id})" title="Supprimer">🗑️</button>
+                                </div>
+                            ` : ''}
                         </div>
                         ${(task.images && task.images.length > 0) || task.image ? `
                             <div class="task-images-gallery">
@@ -1523,15 +2463,21 @@
                             </span>
                         </div>
                         <div class="task-footer">
-                            <div class="task-member">
-                                <div class="member-avatar" style="background: ${member.color}30; color: ${member.color};">
-                                    ${member.avatar}
+                            ${task.assignedTo === 'unassigned' ? `
+                                <button class="btn-take-task" onclick="showAssignMenu(${task.id}, event)">
+                                    👋 À prendre
+                                </button>
+                            ` : `
+                                <div class="task-member">
+                                    <div class="member-avatar" style="background: ${member.color}30; color: ${member.color};">
+                                        ${member.avatar}
+                                    </div>
+                                    <div class="member-info">
+                                        <div class="member-name">${member.name}</div>
+                                        <div class="member-role">${member.role}</div>
+                                    </div>
                                 </div>
-                                <div class="member-info">
-                                    <div class="member-name">${member.name}</div>
-                                    <div class="member-role">${member.role}</div>
-                                </div>
-                            </div>
+                            `}
                             ${task.deadline ? `<div class="task-deadline">📅 ${formatDate(task.deadline)}</div>` : ''}
                         </div>
                     </div>
@@ -1684,6 +2630,7 @@
             const overlay = document.getElementById('modal-overlay');
             const title = document.getElementById('modal-title');
             const submitText = document.getElementById('submit-text');
+            const assignField = document.getElementById('assign-field');
             
             if (taskId) {
                 const task = window.tasks.find(t => t.id === taskId);
@@ -1691,6 +2638,7 @@
                     window.editingTaskId = taskId;
                     title.textContent = 'Modifier la tâche';
                     submitText.textContent = 'Mettre à jour';
+                    assignField.style.display = 'block'; // Afficher en édition
                     
                     document.getElementById('task-title').value = task.title;
                     document.getElementById('task-description').value = task.description;
@@ -1717,6 +2665,7 @@
                 window.editingTaskId = null;
                 title.textContent = 'Nouvelle tâche';
                 submitText.textContent = 'Créer la tâche';
+                assignField.style.display = 'none'; // Masquer en création
                 document.getElementById('task-form').reset();
                 currentImageData = [];
                 updateImagePreview();
@@ -1755,7 +2704,7 @@
                 category: document.getElementById('task-category').value,
                 priority: document.getElementById('task-priority').value,
                 status: document.getElementById('task-status').value,
-                assignedTo: document.getElementById('task-member').value,
+                assignedTo: window.editingTaskId ? document.getElementById('task-member').value : 'unassigned',
                 deadline: document.getElementById('task-deadline').value,
                 images: currentImageData.length > 0 ? [...currentImageData] : []
             };
@@ -1770,6 +2719,7 @@
                 // Add to local array for immediate feedback
                 taskData.id = Date.now();
                 taskData.createdAt = new Date().toISOString();
+                taskData.createdBy = currentUser ? currentUser.member : 'unassigned';
             }
 
             // Save to Firebase
@@ -1779,14 +2729,97 @@
 
         // Edit task
         function editTask(id) {
+            const task = window.tasks.find(t => t.id === id);
+            if (!task) return;
+            
+            if (!window.canModifyTask(task)) {
+                alert('❌ Vous ne pouvez modifier que vos propres tâches.\n\nSeuls Lysty et S.stra peuvent modifier toutes les tâches.');
+                return;
+            }
+            
             openModal(id);
         }
 
         // Delete task
         async function deleteTask(id) {
+            const task = window.tasks.find(t => t.id === id);
+            if (!task) return;
+            
+            if (!window.canModifyTask(task)) {
+                alert('❌ Vous ne pouvez supprimer que vos propres tâches.\n\nSeuls Lysty et S.stra peuvent supprimer toutes les tâches.');
+                return;
+            }
+            
             if (confirm('Voulez-vous vraiment supprimer cette tâche ?')) {
                 await window.deleteTaskFromFirebase(id);
             }
+        }
+
+        // Assign task functionality
+        let currentAssignMenu = null;
+
+        function showAssignMenu(taskId, event) {
+            event.stopPropagation();
+            
+            // Close existing menu if any
+            if (currentAssignMenu) {
+                currentAssignMenu.remove();
+            }
+
+            // Create menu
+            const menu = document.createElement('div');
+            menu.className = 'assign-menu';
+            menu.style.left = event.pageX + 'px';
+            menu.style.top = event.pageY + 'px';
+
+            // Add member options
+            const memberOptions = [
+                { id: 'member1', ...members.member1 },
+                { id: 'member2', ...members.member2 },
+                { id: 'member3', ...members.member3 },
+                { id: 'member4', ...members.member4 },
+                { id: 'member5', ...members.member5 },
+                { id: 'member6', ...members.member6 }
+            ];
+
+            menu.innerHTML = memberOptions.map(m => `
+                <div class="assign-menu-item" onclick="assignTaskTo(${taskId}, '${m.id}')">
+                    <div class="assign-menu-avatar" style="background: ${m.color}30; color: ${m.color};">
+                        ${m.avatar}
+                    </div>
+                    <div class="assign-menu-info">
+                        <div class="assign-menu-name">${m.name}</div>
+                        <div class="assign-menu-role">${m.role}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.body.appendChild(menu);
+            currentAssignMenu = menu;
+
+            // Close menu when clicking outside
+            setTimeout(() => {
+                document.addEventListener('click', closeAssignMenu);
+            }, 10);
+        }
+
+        function closeAssignMenu() {
+            if (currentAssignMenu) {
+                currentAssignMenu.remove();
+                currentAssignMenu = null;
+            }
+            document.removeEventListener('click', closeAssignMenu);
+        }
+
+        async function assignTaskTo(taskId, memberId) {
+            const task = window.tasks.find(t => t.id === taskId);
+            if (task && task.firebaseId && window.firebaseDatabase) {
+                // Import ref and update from the global scope
+                const { ref, update } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js');
+                const taskRef = ref(window.firebaseDatabase, `tasks/${task.firebaseId}`);
+                await update(taskRef, { assignedTo: memberId });
+            }
+            closeAssignMenu();
         }
 
         // Lightbox functionality
@@ -1861,6 +2894,8 @@
         });
 
         // Event listeners
+        document.getElementById('login-form').addEventListener('submit', handleLogin);
+        document.getElementById('signup-form').addEventListener('submit', handleSignup);
         document.getElementById('search').addEventListener('input', renderTasks);
         document.getElementById('filter-category').addEventListener('change', renderTasks);
         document.getElementById('filter-status').addEventListener('change', renderTasks);
@@ -1870,6 +2905,9 @@
         loadTasks();
         initDragAndDrop();
         initPasteFunctionality();
+        
+        // Initialize categories display
+        updateStats();
     </script>
 </body>
 </html>
