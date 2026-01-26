@@ -1547,13 +1547,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // User is approved
                     currentUser = {
-                        uid: user.uid,
-                        email: user.email,
-                        name: approvedData.name,
-                        avatar: approvedData.avatar,
-                        role: approvedData.role || 'user',
-                        member: approvedData.member
+                    uid: user.uid,
+                    email: user.email,
+                    name: approvedData.name,
+                    avatar: approvedData.avatar,
+                    role: approvedData.role || 'user',
+                    member: approvedData.member
                     };
+
+                    // 🔥 RENDRE GLOBAL
+                    window.currentUser = currentUser;
                     
                     // Update UI
                     document.getElementById('login-screen').style.display = 'none';
@@ -1564,21 +1567,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('user-avatar').textContent = currentUser.avatar;
                     
                     const roleEl = document.getElementById('user-role');
-                    if (currentUser.role === 'admin') {
-                        roleEl.textContent = '👑 Administrateur';
-                        roleEl.classList.add('admin');
-                        // Load pending users for admins
-                        loadPendingUsers();
-                    } else {
-                        roleEl.textContent = '👤 Membre';
-                        roleEl.classList.remove('admin');
-                    }
-                    
+                if (currentUser.role === 'admin') {
+                    roleEl.textContent = '👑 Administrateur';
+                    roleEl.classList.add('admin');
+                    loadPendingUsers();
+                } else {
+                    roleEl.textContent = '👤 Membre';
+                    roleEl.classList.remove('admin');
+                }
+
                     // Show main content
                     document.querySelector('.container').style.display = 'block';
                 } else {
                     // User is signed out
                     currentUser = null;
+                    window.currentUser = null;
                     document.getElementById('login-screen').style.display = 'flex';
                     document.getElementById('signup-screen').style.display = 'none';
                     document.getElementById('pending-screen').style.display = 'none';
