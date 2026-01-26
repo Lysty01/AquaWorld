@@ -1494,19 +1494,54 @@ document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signup-form');
 
     if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
+        loginForm.addEventListener('submit', window.handleLogin);
         console.log('✅ Login form listener attached');
     } else {
         console.warn('❌ Login form not found');
     }
 
     if (signupForm) {
-        signupForm.addEventListener('submit', handleSignup);
+        signupForm.addEventListener('submit', window.handleSignup);
         console.log('✅ Signup form listener attached');
     } else {
         console.warn('❌ Signup form not found');
     }
 });
+
+window.takeTask = async function (taskId) {
+    if (!window.currentUser) {
+        alert("Vous devez être connecté");
+        return;
+    }
+
+    const task = window.tasks.find(t => t.id === taskId);
+    if (!task || !task.firebaseId) {
+        alert("Tâche introuvable");
+        return;
+    }
+
+    if (task.assignedTo !== 'unassigned') {
+        alert("Cette tâche est déjà prise");
+        return;
+    }
+
+    try {
+        const taskRef = ref(database, `tasks/${task.firebaseId}`);
+
+        await update(taskRef, {
+            assignedTo: window.currentUser.member,
+            assignedBy: window.currentUser.uid,
+            status: "En cours",
+            takenAt: new Date().toISOString()
+        });
+        
+        loadTasks();
+        console.log("✅ Tâche prise avec succès");
+    } catch (err) {
+        console.error(err);
+        alert("Erreur lors de la prise de la tâche");
+    }
+};
 
         // Initialize Firebase
         let app, database, tasksRef, auth;
@@ -2475,9 +2510,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="task-footer">
                             ${task.assignedTo === 'unassigned' ? `
-                                <button class="btn-take-task" onclick="showAssignMenu(${task.id}, event)">
-                                    👋 À prendre
+                                <button class="btn-take-task" onclick="takeTask(${task.id})">
+                                🖐️ À prendre
                                 </button>
+
                             ` : `
                                 <div class="task-member">
                                     <div class="member-avatar" style="background: ${member.color}30; color: ${member.color};">
