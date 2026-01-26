@@ -2480,7 +2480,7 @@ window.canModifyTask = function (task) {
             container.innerHTML = filtered.map((task, index) => {
                 const cat = categories[task.category];
                 const priority = priorities[task.priority];
-                const status = statuses[task.status];
+                const status = statuses[task.status || 'todo'];
                 const member = members[task.assignedTo];
                 const canModify = window.canModifyTask ? window.canModifyTask(task) : false;
 
