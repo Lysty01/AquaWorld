@@ -1534,7 +1534,7 @@ window.takeTask = async function (taskId) {
             status: "En cours",
             takenAt: new Date().toISOString()
         });
-        
+
         loadTasks();
         console.log("✅ Tâche prise avec succès");
     } catch (err) {
@@ -1975,11 +1975,18 @@ window.takeTask = async function (taskId) {
         };
 
         // Check if user can modify task
-        window.canModifyTask = function(task) {
-            if (!currentUser) return false;
-            if (currentUser.role === 'admin') return true; // Admins can modify everything
-            return task.assignedTo === currentUser.member; // Users can only modify their own tasks
-        };
+window.canModifyTask = function (task) {
+    if (!window.currentUser) return false;
+
+    // 👑 Admin : toujours autorisé
+    if (window.currentUser.role === 'admin') return true;
+
+    // 👤 Membre : seulement ses tâches
+    if (task.assignedTo === window.currentUser.member) return true;
+
+    return false;
+};
+
 
     </script>
 
