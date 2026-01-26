@@ -1489,6 +1489,25 @@
         appId: "1:511575388308:web:192950421a04bc24094481"
         };
 
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+        console.log('✅ Login form listener attached');
+    } else {
+        console.warn('❌ Login form not found');
+    }
+
+    if (signupForm) {
+        signupForm.addEventListener('submit', handleSignup);
+        console.log('✅ Signup form listener attached');
+    } else {
+        console.warn('❌ Signup form not found');
+    }
+});
+
         // Initialize Firebase
         let app, database, tasksRef, auth;
         let isConnected = false;
@@ -1927,19 +1946,6 @@
     </script>
 
     <!-- Temporary stubs for inline onclick handlers - will be replaced by module -->
-    <script>
-        // These will be replaced when the ES6 module loads
-        window.showSignupScreen = function() { console.log('Loading...'); };
-        window.showLoginScreen = function() { console.log('Loading...'); };
-        window.selectAvatar = function() { console.log('Loading...'); };
-        window.handleLogout = function() { console.log('Loading...'); };
-        window.toggleAdminPanel = function() { console.log('Loading...'); };
-        window.openModal = function() { console.log('Loading...'); };
-        window.approveUser = function() { console.log('Loading...'); };
-        window.rejectUser = function() { console.log('Loading...'); };
-        window.handleLogin = function() { console.log('Loading...'); };
-        window.handleSignup = function() { console.log('Loading...'); };
-    </script>
 </head>
 <body>
     <!-- Login Screen -->
