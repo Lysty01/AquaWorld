@@ -1201,7 +1201,7 @@
         .user-info {
             position: fixed;
             top: 20px;
-            left: 20px;
+            right: 20px;
             background: rgba(0, 212, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 10px 20px;
@@ -1887,6 +1887,10 @@
                 await remove(pendingUserRef);
                 
                 alert(`✅ ${name} a été approuvé !`);
+                
+                // Fermer le panneau d'approbation
+                const panel = document.getElementById('admin-panel');
+                if (panel) panel.style.display = 'none';
             } catch (error) {
                 console.error('Approval error:', error);
                 alert('Erreur lors de l\'approbation');
@@ -1906,6 +1910,10 @@
                 // The user account will exist but won't be able to access the app
                 
                 alert('❌ Demande rejetée');
+                
+                // Fermer le panneau d'approbation
+                const panel = document.getElementById('admin-panel');
+                if (panel) panel.style.display = 'none';
             } catch (error) {
                 console.error('Rejection error:', error);
                 alert('Erreur lors du rejet');
@@ -2432,10 +2440,10 @@
 
             emptyState.classList.add('hidden');
             container.innerHTML = filtered.map((task, index) => {
-                const cat = categories[task.category];
-                const priority = priorities[task.priority];
-                const status = statuses[task.status];
-                const member = members[task.assignedTo];
+                const cat = categories[task.category] || categories['roleplay']; // Fallback to roleplay
+                const priority = priorities[task.priority] || priorities['medium']; // Fallback to medium
+                const status = statuses[task.status] || statuses['todo']; // Fallback to todo
+                const member = members[task.assignedTo] || members['unassigned']; // Fallback to unassigned
                 const canModify = window.canModifyTask ? window.canModifyTask(task) : false;
 
                 return `
