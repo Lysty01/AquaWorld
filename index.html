@@ -2485,7 +2485,7 @@
                         </div>
                         <div class="task-footer">
                             ${task.assignedTo === 'unassigned' ? `
-                                <button class="btn-take-task" onclick="showAssignMenu(${task.id}, event)">
+                                <button class="btn-take-task" onclick="window.showAssignMenu(${task.id}, event)">
                                     👋 À prendre
                                 </button>
                             ` : `
@@ -2740,13 +2740,21 @@
                 // Add to local array for immediate feedback
                 taskData.id = Date.now();
                 taskData.createdAt = new Date().toISOString();
-                taskData.createdBy = currentUser ? window.currentUser.member : 'unassigned';
+                taskData.createdBy = window.currentUser ? window.currentUser.member : 'unassigned';
+                window.tasks.push(taskData); // Add to local array immediately
             }
 
             // Save to Firebase
             await window.saveTaskToFirebase(taskData);
             closeModal();
+            
+            // Force re-render to show changes immediately
+            renderTasks();
+            updateStats();
         }
+        
+        // Expose saveTask globally for form submission
+        window.saveTask = saveTask;
 
         // Edit task
         function editTask(id) {
@@ -2780,7 +2788,9 @@
         let currentAssignMenu = null;
 
         function showAssignMenu(taskId, event) {
-            event.stopPropagation();
+            if (event) {
+                event.stopPropagation();
+            }
             
             // Close existing menu if any
             if (currentAssignMenu) {
@@ -2790,8 +2800,21 @@
             // Create menu
             const menu = document.createElement('div');
             menu.className = 'assign-menu';
-            menu.style.left = event.pageX + 'px';
-            menu.style.top = event.pageY + 'px';
+            
+            // Position menu - use event if available, otherwise use a default position
+            if (event && event.pageX && event.pageY) {
+                menu.style.left = event.pageX + 'px';
+                menu.style.top = event.pageY + 'px';
+            } else if (event && event.target) {
+                const rect = event.target.getBoundingClientRect();
+                menu.style.left = (rect.left + window.scrollX) + 'px';
+                menu.style.top = (rect.bottom + window.scrollY) + 'px';
+            } else {
+                // Fallback to center of screen
+                menu.style.left = '50%';
+                menu.style.top = '50%';
+                menu.style.transform = 'translate(-50%, -50%)';
+            }
 
             // Add member options
             const memberOptions = [
