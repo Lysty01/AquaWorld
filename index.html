@@ -1489,60 +1489,6 @@
         appId: "1:511575388308:web:192950421a04bc24094481"
         };
 
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('login-form');
-    const signupForm = document.getElementById('signup-form');
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', window.handleLogin);
-        console.log('✅ Login form listener attached');
-    } else {
-        console.warn('❌ Login form not found');
-    }
-
-    if (signupForm) {
-        signupForm.addEventListener('submit', window.handleSignup);
-        console.log('✅ Signup form listener attached');
-    } else {
-        console.warn('❌ Signup form not found');
-    }
-});
-
-window.takeTask = async function (taskId) {
-    if (!window.currentUser) {
-        alert("Vous devez être connecté");
-        return;
-    }
-
-    const task = window.tasks.find(t => t.id === taskId);
-    if (!task || !task.firebaseId) {
-        alert("Tâche introuvable");
-        return;
-    }
-
-    if (task.assignedTo !== 'unassigned') {
-        alert("Cette tâche est déjà prise");
-        return;
-    }
-
-    try {
-        const taskRef = ref(database, `tasks/${task.firebaseId}`);
-
-        await update(taskRef, {
-            assignedTo: window.currentUser.member,
-            assignedBy: window.currentUser.uid,
-            status: "En cours",
-            takenAt: new Date().toISOString()
-        });
-
-        loadTasks();
-        console.log("✅ Tâche prise avec succès");
-    } catch (err) {
-        console.error(err);
-        alert("Erreur lors de la prise de la tâche");
-    }
-};
-
         // Initialize Firebase
         let app, database, tasksRef, auth;
         let isConnected = false;
@@ -1582,16 +1528,13 @@ window.takeTask = async function (taskId) {
 
                     // User is approved
                     currentUser = {
-                    uid: user.uid,
-                    email: user.email,
-                    name: approvedData.name,
-                    avatar: approvedData.avatar,
-                    role: approvedData.role || 'user',
-                    member: approvedData.member
+                        uid: user.uid,
+                        email: user.email,
+                        name: approvedData.name,
+                        avatar: approvedData.avatar,
+                        role: approvedData.role || 'user',
+                        member: approvedData.member
                     };
-
-                    // 🔥 RENDRE GLOBAL
-                    window.currentUser = currentUser;
                     
                     // Update UI
                     document.getElementById('login-screen').style.display = 'none';
@@ -1602,21 +1545,21 @@ window.takeTask = async function (taskId) {
                     document.getElementById('user-avatar').textContent = currentUser.avatar;
                     
                     const roleEl = document.getElementById('user-role');
-                if (currentUser.role === 'admin') {
-                    roleEl.textContent = '👑 Administrateur';
-                    roleEl.classList.add('admin');
-                    loadPendingUsers();
-                } else {
-                    roleEl.textContent = '👤 Membre';
-                    roleEl.classList.remove('admin');
-                }
-
+                    if (currentUser.role === 'admin') {
+                        roleEl.textContent = '👑 Administrateur';
+                        roleEl.classList.add('admin');
+                        // Load pending users for admins
+                        loadPendingUsers();
+                    } else {
+                        roleEl.textContent = '👤 Membre';
+                        roleEl.classList.remove('admin');
+                    }
+                    
                     // Show main content
                     document.querySelector('.container').style.display = 'block';
                 } else {
                     // User is signed out
                     currentUser = null;
-                    window.currentUser = null;
                     document.getElementById('login-screen').style.display = 'flex';
                     document.getElementById('signup-screen').style.display = 'none';
                     document.getElementById('pending-screen').style.display = 'none';
@@ -1857,6 +1800,11 @@ window.takeTask = async function (taskId) {
             }
         };
 
+        // Attach event listeners for login and signup forms
+        // IMPORTANT: These must be attached AFTER the functions are defined
+        document.getElementById('login-form').addEventListener('submit', handleLogin);
+        document.getElementById('signup-form').addEventListener('submit', handleSignup);
+
         // Load pending users (for admins)
         async function loadPendingUsers() {
             const pendingRef = ref(database, 'pendingUsers');
@@ -1975,22 +1923,28 @@ window.takeTask = async function (taskId) {
         };
 
         // Check if user can modify task
-window.canModifyTask = function (task) {
-    if (!window.currentUser) return false;
-
-    // 👑 Admin : toujours autorisé
-    if (window.currentUser.role === 'admin') return true;
-
-    // 👤 Membre : seulement ses tâches
-    if (task.assignedTo === window.currentUser.member) return true;
-
-    return false;
-};
-
+        window.canModifyTask = function(task) {
+            if (!currentUser) return false;
+            if (currentUser.role === 'admin') return true; // Admins can modify everything
+            return task.assignedTo === currentUser.member; // Users can only modify their own tasks
+        };
 
     </script>
 
     <!-- Temporary stubs for inline onclick handlers - will be replaced by module -->
+    <script>
+        // These will be replaced when the ES6 module loads
+        window.showSignupScreen = function() { console.log('Loading...'); };
+        window.showLoginScreen = function() { console.log('Loading...'); };
+        window.selectAvatar = function() { console.log('Loading...'); };
+        window.handleLogout = function() { console.log('Loading...'); };
+        window.toggleAdminPanel = function() { console.log('Loading...'); };
+        window.openModal = function() { console.log('Loading...'); };
+        window.approveUser = function() { console.log('Loading...'); };
+        window.rejectUser = function() { console.log('Loading...'); };
+        window.handleLogin = function() { console.log('Loading...'); };
+        window.handleSignup = function() { console.log('Loading...'); };
+    </script>
 </head>
 <body>
     <!-- Login Screen -->
@@ -2480,7 +2434,7 @@ window.canModifyTask = function (task) {
             container.innerHTML = filtered.map((task, index) => {
                 const cat = categories[task.category];
                 const priority = priorities[task.priority];
-                const status = statuses[task.status || 'todo'];
+                const status = statuses[task.status];
                 const member = members[task.assignedTo];
                 const canModify = window.canModifyTask ? window.canModifyTask(task) : false;
 
@@ -2517,10 +2471,9 @@ window.canModifyTask = function (task) {
                         </div>
                         <div class="task-footer">
                             ${task.assignedTo === 'unassigned' ? `
-                                <button class="btn-take-task" onclick="takeTask(${task.id})">
-                                🖐️ À prendre
+                                <button class="btn-take-task" onclick="showAssignMenu(${task.id}, event)">
+                                    👋 À prendre
                                 </button>
-
                             ` : `
                                 <div class="task-member">
                                     <div class="member-avatar" style="background: ${member.color}30; color: ${member.color};">
@@ -2947,9 +2900,7 @@ window.canModifyTask = function (task) {
             }
         });
 
-        // Event listeners
-        document.getElementById('login-form').addEventListener('submit', handleLogin);
-        document.getElementById('signup-form').addEventListener('submit', handleSignup);
+        // Event listeners (for search and filters only - login/signup listeners are attached after their functions are defined)
         document.getElementById('search').addEventListener('input', renderTasks);
         document.getElementById('filter-category').addEventListener('change', renderTasks);
         document.getElementById('filter-status').addEventListener('change', renderTasks);
