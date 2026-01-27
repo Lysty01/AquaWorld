@@ -1492,7 +1492,7 @@
         // Initialize Firebase
         let app, database, tasksRef, auth;
         let isConnected = false;
-        let currentUser = null;
+        window.currentUser = null;
 
         // Note: User roles are now stored in Firebase (approvedUsers)
         // Lysty and S.stra are automatically set as admins when approved
@@ -1527,7 +1527,7 @@
                     }
 
                     // User is approved
-                    currentUser = {
+                    window.currentUser = {
                         uid: user.uid,
                         email: user.email,
                         name: approvedData.name,
@@ -1541,11 +1541,11 @@
                     document.getElementById('signup-screen').style.display = 'none';
                     document.getElementById('pending-screen').style.display = 'none';
                     document.getElementById('user-info').style.display = 'flex';
-                    document.getElementById('user-name').textContent = currentUser.name;
-                    document.getElementById('user-avatar').textContent = currentUser.avatar;
+                    document.getElementById('user-name').textContent = window.currentUser.name;
+                    document.getElementById('user-avatar').textContent = window.currentUser.avatar;
                     
                     const roleEl = document.getElementById('user-role');
-                    if (currentUser.role === 'admin') {
+                    if (window.currentUser.role === 'admin') {
                         roleEl.textContent = '👑 Administrateur';
                         roleEl.classList.add('admin');
                         // Load pending users for admins
@@ -1559,7 +1559,7 @@
                     document.querySelector('.container').style.display = 'block';
                 } else {
                     // User is signed out
-                    currentUser = null;
+                    window.currentUser = null;
                     document.getElementById('login-screen').style.display = 'flex';
                     document.getElementById('signup-screen').style.display = 'none';
                     document.getElementById('pending-screen').style.display = 'none';
@@ -1879,7 +1879,7 @@
                     role: role,
                     member: member,
                     approvedAt: new Date().toISOString(),
-                    approvedBy: currentUser.uid
+                    approvedBy: window.currentUser.uid
                 });
                 
                 // Remove from pending
@@ -1933,8 +1933,8 @@
         // Check if user can modify task
         window.canModifyTask = function(task) {
             if (!currentUser) return false;
-            if (currentUser.role === 'admin') return true; // Admins can modify everything
-            return task.assignedTo === currentUser.member; // Users can only modify their own tasks
+            if (window.currentUser.role === 'admin') return true; // Admins can modify everything
+            return task.assignedTo === window.currentUser.member; // Users can only modify their own tasks
         };
 
     </script>
@@ -2411,6 +2411,12 @@
         window.showAssignMenu = showAssignMenu;
         window.assignTaskTo = assignTaskTo;
         window.closeAssignMenu = closeAssignMenu;
+        window.openModal = openModal;
+        window.closeModal = closeModal;
+        window.editTask = editTask;
+        window.deleteTask = deleteTask;
+        window.openLightbox = openLightbox;
+        window.closeLightbox = closeLightbox;
 
         // Render tasks
         function renderTasks() {
@@ -2734,7 +2740,7 @@
                 // Add to local array for immediate feedback
                 taskData.id = Date.now();
                 taskData.createdAt = new Date().toISOString();
-                taskData.createdBy = currentUser ? currentUser.member : 'unassigned';
+                taskData.createdBy = currentUser ? window.currentUser.member : 'unassigned';
             }
 
             // Save to Firebase
