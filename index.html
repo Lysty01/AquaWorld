@@ -2450,7 +2450,14 @@
                 const priority = priorities[task.priority] || priorities['medium']; // Fallback to medium
                 const status = statuses[task.status] || statuses['todo']; // Fallback to todo
                 const member = members[task.assignedTo] || members['unassigned']; // Fallback to unassigned
-                const canModify = window.canModifyTask ? window.canModifyTask(task) : false;
+                
+                // Check if user can modify this task
+                let canModify = false;
+                if (window.currentUser && window.currentUser.role === 'admin') {
+                    canModify = true; // Admins can modify everything
+                } else if (window.currentUser && task.assignedTo === window.currentUser.member) {
+                    canModify = true; // Users can modify their own tasks
+                }
 
                 return `
                     <div class="task-card glass-dark" style="animation-delay: ${index * 0.1}s">
@@ -2461,8 +2468,8 @@
                             </div>
                             ${canModify ? `
                                 <div class="task-actions">
-                                    <button class="icon-btn" onclick="editTask(${task.id})" title="Modifier">✏️</button>
-                                    <button class="icon-btn" onclick="deleteTask(${task.id})" title="Supprimer">🗑️</button>
+                                    <button class="icon-btn" onclick="window.editTask(${task.id})" title="Modifier">✏️</button>
+                                    <button class="icon-btn" onclick="window.deleteTask(${task.id})" title="Supprimer">🗑️</button>
                                 </div>
                             ` : ''}
                         </div>
