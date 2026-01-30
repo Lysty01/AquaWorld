@@ -981,14 +981,14 @@
         /* Assign Menu */
         .assign-menu {
             position: fixed;
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(15, 23, 42, 0.98);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(0, 212, 255, 0.5);
             border-radius: 12px;
-            padding: 8px;
+            padding: 12px;
             z-index: 10000;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            min-width: 200px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 212, 255, 0.3);
+            min-width: 220px;
         }
 
         .assign-menu-item {
@@ -1558,8 +1558,10 @@
                     // Show main content
                     document.querySelector('.container').style.display = 'block';
                     
-                    // Render tasks and stats now that user is authenticated
-                    if (typeof window.renderTasks === 'function') {
+                    // Re-render tasks now that currentUser is defined
+                    // (Firebase may have already loaded tasks before auth completed)
+                    console.log('currentUser NOW defined, re-rendering tasks...');
+                    if (typeof window.renderTasks === 'function' && window.tasks && window.tasks.length > 0) {
                         window.renderTasks();
                     }
                     if (typeof window.updateStats === 'function') {
@@ -1590,6 +1592,8 @@
                 const data = snapshot.val();
                 window.tasks = [];
                 
+                console.log('Firebase tasks loaded, data:', data);
+                
                 if (data) {
                     Object.keys(data).forEach(key => {
                         window.tasks.push({
@@ -1599,9 +1603,14 @@
                     });
                 }
                 
+                console.log('window.tasks after loading:', window.tasks.length, 'tasks');
+                
                 // Call render functions if they exist (they're defined later in the script)
                 if (typeof window.renderTasks === 'function') {
+                    console.log('Calling renderTasks()...');
                     window.renderTasks();
+                } else {
+                    console.log('renderTasks not available yet');
                 }
                 if (typeof window.updateStats === 'function') {
                     window.updateStats();
@@ -2467,6 +2476,16 @@
                     canModify = true; // Users can modify their own tasks
                 }
                 
+                // Debug log for first task only
+                if (index === 0) {
+                    console.log('DEBUG Task 0:', {
+                        currentUser: window.currentUser,
+                        role: window.currentUser ? window.currentUser.role : 'NO USER',
+                        canModify: canModify,
+                        taskId: task.id
+                    });
+                }
+                
                 // Generate buttons HTML
                 const buttonsHTML = canModify ? `
                     <div class="task-actions">
@@ -2806,6 +2825,8 @@
         let currentAssignMenu = null;
 
         function showAssignMenu(taskId, event) {
+            console.log('showAssignMenu appelé, taskId:', taskId, 'event:', event);
+            
             if (event) {
                 event.stopPropagation();
             }
@@ -2819,19 +2840,21 @@
             const menu = document.createElement('div');
             menu.className = 'assign-menu';
             
-            // Position menu - use event if available, otherwise use a default position
-            if (event && event.pageX && event.pageY) {
-                menu.style.left = event.pageX + 'px';
-                menu.style.top = event.pageY + 'px';
-            } else if (event && event.target) {
+            // Position menu near the button that was clicked
+            if (event && event.target) {
                 const rect = event.target.getBoundingClientRect();
-                menu.style.left = (rect.left + window.scrollX) + 'px';
-                menu.style.top = (rect.bottom + window.scrollY) + 'px';
+                // Position below the button, visible on screen
+                menu.style.position = 'fixed'; // Use fixed instead of absolute
+                menu.style.left = rect.left + 'px';
+                menu.style.top = (rect.bottom + 5) + 'px'; // 5px below button
+                menu.style.zIndex = '9999';
             } else {
                 // Fallback to center of screen
+                menu.style.position = 'fixed';
                 menu.style.left = '50%';
                 menu.style.top = '50%';
                 menu.style.transform = 'translate(-50%, -50%)';
+                menu.style.zIndex = '9999';
             }
 
             // Add member options
@@ -2845,7 +2868,7 @@
             ];
 
             menu.innerHTML = memberOptions.map(m => `
-                <div class="assign-menu-item" onclick="assignTaskTo(${taskId}, '${m.id}')">
+                <div class="assign-menu-item" onclick="window.assignTaskTo(${taskId}, '${m.id}')">
                     <div class="assign-menu-avatar" style="background: ${m.color}30; color: ${m.color};">
                         ${m.avatar}
                     </div>
@@ -2858,6 +2881,7 @@
 
             document.body.appendChild(menu);
             currentAssignMenu = menu;
+            console.log('Menu ajouté au DOM, position:', menu.style.left, menu.style.top);
 
             // Close menu when clicking outside
             setTimeout(() => {
