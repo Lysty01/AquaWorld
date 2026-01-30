@@ -1557,6 +1557,14 @@
                     
                     // Show main content
                     document.querySelector('.container').style.display = 'block';
+                    
+                    // Render tasks and stats now that user is authenticated
+                    if (typeof window.renderTasks === 'function') {
+                        window.renderTasks();
+                    }
+                    if (typeof window.updateStats === 'function') {
+                        window.updateStats();
+                    }
                 } else {
                     // User is signed out
                     window.currentUser = null;
@@ -2458,6 +2466,14 @@
                 } else if (window.currentUser && task.assignedTo === window.currentUser.member) {
                     canModify = true; // Users can modify their own tasks
                 }
+                
+                // Generate buttons HTML
+                const buttonsHTML = canModify ? `
+                    <div class="task-actions">
+                        <button class="icon-btn" onclick="window.editTask(${task.id})" title="Modifier">✏️</button>
+                        <button class="icon-btn" onclick="window.deleteTask(${task.id})" title="Supprimer">🗑️</button>
+                    </div>
+                ` : '';
 
                 return `
                     <div class="task-card glass-dark" style="animation-delay: ${index * 0.1}s">
@@ -2466,12 +2482,7 @@
                                 <span>${cat.icon}</span>
                                 <span>${cat.label}</span>
                             </div>
-                            ${canModify ? `
-                                <div class="task-actions">
-                                    <button class="icon-btn" onclick="window.editTask(${task.id})" title="Modifier">✏️</button>
-                                    <button class="icon-btn" onclick="window.deleteTask(${task.id})" title="Supprimer">🗑️</button>
-                                </div>
-                            ` : ''}
+                            ${buttonsHTML}
                         </div>
                         ${(task.images && task.images.length > 0) || task.image ? `
                             <div class="task-images-gallery">
