@@ -1526,16 +1526,14 @@
             
             console.log('🔥 Attaching Firebase listeners...');
             
-            // 🔥 DÉSACTIVÉ: onValue génère trop d'erreurs de permission
-            // On utilise uniquement le chargement manuel avec get()
-            /*
+            // 🔥 RÉACTIVÉ: Les règles Firebase sont maintenant correctes !
             console.log('📡 Attaching onValue listener to tasksRef:', tasksRef);
             
             onValue(tasksRef, (snapshot) => {
                 const data = snapshot.val();
                 window.tasks = [];
                 
-                console.log('📦 Firebase tasks loaded, data:', data);
+                console.log('📦 Firebase tasks loaded via onValue, data:', data);
                 
                 if (data) {
                     let taskIndex = 0;
@@ -1561,11 +1559,6 @@
             });
             
             console.log('✅ onValue listener attached successfully');
-            */
-            
-            // À la place, on marque tasksLoaded comme true immédiatement
-            // (le vrai chargement se fera manuellement à la connexion)
-            console.log('⚠️ onValue disabled - will use manual loading only');
             
             // Listen for connection status
             const connectedRef = ref(database, '.info/connected');
